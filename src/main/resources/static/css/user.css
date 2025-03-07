@@ -1,0 +1,16 @@
+.show-msg{
+    display:block !important;
+}
+.hidden-msg{
+    display:none !important;
+}
+.main-list{
+    text-overflow: ellipsis;
+}
+.main-list img {
+    max-height:9rem;
+    object-fit: contain;
+}
+.m-col{
+    height: 50%;
+}
