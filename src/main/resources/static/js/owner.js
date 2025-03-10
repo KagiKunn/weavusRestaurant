@@ -19,3 +19,28 @@ async function getAddress() {
         console.error('Error:', error);
     }
 }
+function restEditPage(){
+    const no = document.getElementById('id').value;
+    location.href="/owner/edit/"+no;
+}
+
+function deleteRestaurant() {
+    const no = document.getElementById('id').value;
+    const name = document.getElementById('userId').value;
+    let f = document.createElement("form");
+    f.setAttribute("method", "POST");
+    f.setAttribute("action", "/owner/deleterestaurant");
+
+    let i = document.createElement("input");
+    i.setAttribute("type", "hidden");
+    i.setAttribute("name", "id");
+    i.value = no;
+    f.appendChild(i);
+    let n = document.createElement("input");
+    n.setAttribute("type", "hidden");
+    n.setAttribute("name", "userId");
+    n.value = name;
+    f.appendChild(n);
+    document.body.appendChild(f);
+    f.submit();
+}

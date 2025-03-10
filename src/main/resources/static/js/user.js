@@ -71,3 +71,7 @@ function signUpPass(){
     }
     return idpass && pwpass;
 }
+
+function userInfoSubmit(){
+    document.querySelector("form").submit();
+}

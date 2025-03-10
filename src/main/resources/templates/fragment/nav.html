@@ -3,7 +3,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg" style="border-radius:0 0 0.5rem 0.5rem;background-color: lightgray" th:fragment="nav">
 			<div class="container-fluid">
-				<a class="navbar-brand col-2" href="/main">Title</a>
+				<a class="navbar-brand col-2" href="/main" th:text="${title}">Title</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -23,7 +23,7 @@
 								<a class="nav-link" href="/mypage">My Page</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="/reservation">My Reservation</a>
+								<a class="nav-link" th:href="@{'/reservelist/' + ${session.user.id}}">My Reservation</a>
 							</li>
 
 							<th:block th:if="${session.user.getRole()==1}">

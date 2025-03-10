@@ -2,7 +2,6 @@ package com.example.project02.dto.everyone;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
 
@@ -22,4 +21,5 @@ public class RestaurantEveryDto {
 	private int reserved;
 	private String telephone;
 	private String userName;
+	private String userId;
 }

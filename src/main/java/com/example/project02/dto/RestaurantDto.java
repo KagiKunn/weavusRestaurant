@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.Timestamp;
 @Data
 public class RestaurantDto {
-	private int id;
+	private Long id;
 	private String name;
 	private String description;
 	private String address;

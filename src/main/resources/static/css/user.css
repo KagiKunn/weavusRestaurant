@@ -1,6 +1,9 @@
 .show-msg{
     display:block !important;
 }
+.show-flex{
+    display:flex !important;
+}
 .hidden-msg{
     display:none !important;
 }
@@ -13,4 +16,16 @@
 }
 .m-col{
     height: 50%;
+}
+.upper-cell{
+    height:6rem;
+}
+.under-cell{
+    height:3rem;
+}
+
+.readonly-box{
+    color: lightgray;
+    border: 1px solid lightgray;
+    background-color: #fbf9e2;
 }

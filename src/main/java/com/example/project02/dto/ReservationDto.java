@@ -1,12 +1,14 @@
 package com.example.project02.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
 
+@Builder
 @Data
 public class ReservationDto {
-	private String id;
+	private Long id;
 	private Timestamp time;
 	private int peopleNo;
 	//0:승낙대기 1:예약성공 2:예약취소

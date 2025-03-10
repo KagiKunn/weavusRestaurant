@@ -22,6 +22,7 @@ public class MainController {
 	@GetMapping("/main")
 	public String Main(Model model) {
 		model.addAttribute("restaurant",userService.getAllRestaurant());
+		model.addAttribute("title","Title");
 		return "main/main";
 	}
 

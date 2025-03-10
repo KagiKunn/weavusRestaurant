@@ -19,4 +19,10 @@ public class UserRestController {
 		System.out.println("check Controller called");
 		return userService.idCheck(request.get("id"));
 	}
+
+	@PostMapping("pwcheck")
+	public boolean checkPw(@RequestBody Map<String, String> request) {
+		System.out.println("check Controller called");
+		return userService.pwCheck(request.get("id"),request.get("pw"));
+	}
 }
