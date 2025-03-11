@@ -2,9 +2,11 @@ package com.example.project02.service;
 
 import com.example.project02.dto.RestaurantDto;
 import com.example.project02.dto.everyone.RestaurantEveryDto;
+import com.example.project02.entity.Reservation;
 import com.example.project02.entity.Restaurant;
 import com.example.project02.entity.User;
 import com.example.project02.repository.OwnerRepository;
+import com.example.project02.repository.ReserveRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +28,7 @@ public class OwnerService {
 	private String uploadPath;
 
 	private final OwnerRepository ownerRepository;
+	private final ReserveRepository reserveRepository;
 
 	@Transactional
 	public void registry(RestaurantDto restaurantDto, HttpSession session) {
@@ -46,6 +49,8 @@ public class OwnerService {
 					.img(imgName)
 					.createdAt(timestamp)
 					.updatedAt(timestamp)
+					.favorite(0L)
+					.reserved(0L)
 					.user((User)session.getAttribute("user"))
 					.build();
 			ownerRepository.save(restaurant);

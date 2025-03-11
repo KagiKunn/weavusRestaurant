@@ -1,5 +1,6 @@
 package com.example.project02.dto.everyone;
 
+import com.example.project02.entity.Restaurant;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,10 +17,12 @@ public class RestaurantEveryDto {
 	private Timestamp createdAt;
 	private Timestamp updatedAt;
 	//추천 수
-	private int favorite;
+	private Long favorite;
 	//누적 예약자
-	private int reserved;
+	private Long reserved;
 	private String telephone;
 	private String userName;
 	private String userId;
+
+
 }

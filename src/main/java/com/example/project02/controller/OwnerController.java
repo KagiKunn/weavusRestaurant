@@ -7,21 +7,20 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+
+@RequestMapping("owner/")
 @RequiredArgsConstructor
 @Controller
 public class OwnerController {
 
 	private final OwnerService ownerService;
 
-	@GetMapping("owner/restaurants")
+	@GetMapping("restaurants")
 	public String ownerRestaurants(HttpSession session, Model model) {
 		System.out.println("restaurant controller called");
 		List<RestaurantEveryDto> restaurant = ownerService.getOwnerRestaurant(session);
@@ -31,31 +30,31 @@ public class OwnerController {
 		return "owner/restaurants";
 	}
 
-	@GetMapping("owner/registry")
+	@GetMapping("registry")
 	public String ownerRegistry() {
 		System.out.println("registry get controller called");
 		return "owner/registry";
 	}
 
-	@PostMapping("owner/registry")
+	@PostMapping("registry")
 	public String ownerRegistryProcess(@ModelAttribute RestaurantDto restaurantDto , HttpSession session) {
 		System.out.println("registry post controller called");
 		ownerService.registry(restaurantDto, session);
 		return "redirect:/owner/restaurants";
 	}
 
-	@GetMapping("owner/restaurant/{id}")
+	@GetMapping("restaurant/{id}")
 	public String ownerRestaurant(@PathVariable Long id, Model model) {
 		model.addAttribute("r", ownerService.getRestaurant(id));
 		return "owner/restaurant";
 	}
-	@GetMapping("owner/edit/{id}")
+	@GetMapping("edit/{id}")
 	public String ownerRestaurantEdit(@PathVariable Long id, Model model) {
 		model.addAttribute("r", ownerService.getRestaurant(id));
 		return "owner/edit";
 	}
 
-	@PostMapping("owner/edit")
+	@PostMapping("edit")
 	public String restaurantEditProcess(@ModelAttribute RestaurantDto restaurantDto, HttpSession session
 			,RedirectAttributes redirectAttributes) {
 		ownerService.updateRestaurant(restaurantDto, session);
@@ -63,7 +62,7 @@ public class OwnerController {
 		return "redirect:/owner/restaurant/{id}";
 	}
 
-	@PostMapping("owner/deleterestaurant")
+	@PostMapping("deleterestaurant")
 	public String restaurantDeleter(@ModelAttribute RestaurantDto restaurantDto, HttpSession session) {
 		ownerService.deleteRestaurant(restaurantDto, session);
 		return "redirect:/main";

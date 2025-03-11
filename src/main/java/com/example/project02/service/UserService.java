@@ -4,6 +4,7 @@ import com.example.project02.dto.UserDto;
 import com.example.project02.dto.everyone.RestaurantEveryDto;
 import com.example.project02.entity.User;
 import com.example.project02.repository.OwnerRepository;
+import com.example.project02.repository.ReserveRepository;
 import com.example.project02.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class UserService {
 
 	private final UserRepository userRepository;
 	private final OwnerRepository ownerRepository;
+	private final ReserveRepository	reserveRepository;
 
 	@Transactional
 	public void signUp(UserDto userDto, HttpSession session) {
