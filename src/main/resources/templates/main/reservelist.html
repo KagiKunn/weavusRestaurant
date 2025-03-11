@@ -12,28 +12,29 @@
 	<div class="row">
 		<div th:replace="fragment/nav :: nav"></div>
 		<ul class="list-group p-0 m-4 mx-auto" >
-			<li class="list-group-item main-list" th:each="r:${restaurant}">
+			<li class="list-group-item main-list" th:each="r:${r}">
+				<input hidden th:value="${r.id}" name="id">
 				<div class="row">
 					<div class="col-2 p-1 rounded" style="background-color: lightgray">
-						<img th:src="${r.img}" alt="..." class="img-fluid rounded"/>
+						<img th:src="|/upload/${r.restaurantId.img}|" alt="..." class="img-fluid rounded"/>
 					</div>
 					<div class="col border">
 						<div class="row upper-cell border-bottom d-flex align-items-center">
-							<div class="col border-end  " ><h2 th:text="${r.name}"></h2></div>
-							<div class="col" th:text="${r.address}">주소</div>
+							<div class="col border-end  " ><h2 th:text="${r.restaurantId.name}"></h2></div>
+							<div class="col" th:text="${r.restaurantId.address}">주소</div>
 						</div>
 						<div class="row under-cell d-flex align-items-center">
-							<div class="col border-end" th:text="${r.createdAt}">등록일</div>
-							<div class="col-2 border-end" th:text="${r.favorite}">추천수</div>
-							<div class="col-2" th:text="${r.reserved}">누적방문자</div>
+							<div class="col border-end" th:text="|Date : ${r.date}|">예약일</div>
+							<div class="col-3 border-end" th:text="|Time : ${r.time}|">시간</div>
+							<div class="col-3" th:text="|People : ${r.peopleNo}|">인원수</div>
 						</div>
 					</div>
 					<div class="col-1">
 						<div class="h-50 d-flex align-items-center">
-							<button class="btn btn-primary p-1 w-100 h-75">Detail</button>
+							<a class="btn btn-primary p-1 w-100 h-75 d-flex align-items-center justify-content-center" th:href="@{/reservation/{id}(id=${r.id})}">Detail</a>
 						</div>
 						<div class="h-50 d-flex align-items-center">
-							<button class="btn btn-success p-1 w-100 h-75">Reserve</button>
+							<button class="btn btn-warning p-1 w-100 h-75" onclick="cancelReservation">Cancel</button>
 						</div>
 					</div>
 				</div>
@@ -43,6 +44,7 @@
 	</div>
 </div>
 <script type="text/javascript" th:src="@{/js/main.js}"></script>
+<script type="text/javascript" th:src="@{/js/reserve.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

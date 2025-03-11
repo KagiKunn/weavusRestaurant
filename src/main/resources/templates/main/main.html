@@ -13,6 +13,7 @@
 		<div th:replace="fragment/nav :: nav"></div>
 		<ul class="list-group p-0 m-4 mx-auto" >
 			<li class="list-group-item main-list" th:each="r:${restaurant}">
+				<input hidden th:value="${r.id}" id="id" name="id">
 					<div class="row">
 						<div class="col-2 p-1 rounded" style="background-color: lightgray">
 							<img th:src="${r.img}" alt="..." class="img-fluid rounded"/>
@@ -28,14 +29,16 @@
 								<div class="col-2" th:text="${r.reserved}">누적방문자</div>
 							</div>
 						</div>
+						<th:block th:if="${session.user != null}">
 						<div class="col-1">
 							<div class="h-50 d-flex align-items-center">
-								<button class="btn btn-primary p-1 w-100 h-75">Detail</button>
+								<a class="btn btn-primary p-1 w-100 h-75 d-flex justify-content-center align-items-center" th:href="@{/restaurant/{id}(id=${r.id})}">Detail</a>
 							</div>
 							<div class="h-50 d-flex align-items-center">
-								<button class="btn btn-success p-1 w-100 h-75">Reserve</button>
+								<a class="btn btn-success p-1 w-100 h-75 d-flex justify-content-center align-items-center" th:href="@{/reservation/{id}(id=${r.id})}">Reserve</a>
 							</div>
 						</div>
+						</th:block>
 					</div>
 			</li>
 

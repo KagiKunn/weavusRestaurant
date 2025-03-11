@@ -1,7 +1,5 @@
-package com.example.project02.dto;
+package com.example.project02.dto.everyone;
 
-import com.example.project02.entity.Restaurant;
-import com.example.project02.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Builder
 @Data
-public class ReservationDto {
+public class ReservationEveryDto {
 	private Long id;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
@@ -24,6 +22,6 @@ public class ReservationDto {
 	private int peopleNo;
 	//0:승낙대기 1:예약성공 2:예약취소
 	private int status;
-	private User userId;
-	private Restaurant restaurantId;
+	private String userId;
+	private Long restaurantId;
 }
