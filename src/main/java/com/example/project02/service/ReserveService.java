@@ -123,6 +123,7 @@ public class ReserveService {
 			System.out.println("r is null");
 			return;
 		}
+		long rid = r.getRestaurant().getId();
 		Reservation reservation =Reservation.builder()
 				.id(r.getId())
 				.status(1)
@@ -132,6 +133,11 @@ public class ReserveService {
 				.user(r.getUser())
 				.build();
 		reserveRepository.save(reservation);
+		Restaurant res = ownerRepository.findById(rid).orElse(null);
+		Restaurant cres = res.toBuilder()
+				.reserved(res.getReserved()+1)
+				.build();
+		ownerRepository.save(cres);
 	}
 
 	public String cancelDestination(String pg, Long id, HttpSession session) {

@@ -29,10 +29,10 @@
 						</div>
 					</div>
 					<div class="col-1">
-						<div class="h-50 d-flex align-items-center" th:if="${r.status!=1}">
+						<div class="h-50 d-flex align-items-center" th:if="${r.status==0}">
 							<button class="btn btn-success p-1 w-100 h-75" th:onclick="|confirmReservation('${r.id}','${r.restaurantId.id}')|">Confirm</button>
 						</div>
-						<div class="h-50 d-flex align-items-center" th:if="${r.status!=2}">
+						<div class="h-50 d-flex align-items-center" th:if="${r.status==0}">
 							<button class="btn btn-warning p-1 w-100 h-75" th:onclick="|ownerCancelReservation('${r.id}','${r.restaurantId.id}')|">Cancel</button>
 						</div>
 					</div>
