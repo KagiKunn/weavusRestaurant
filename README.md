@@ -26,7 +26,7 @@ Restaurant reservation system
 - Cancel Reservation
 
 ## Table
-
+![Image](https://github.com/user-attachments/assets/da0bf03b-954e-40b3-8c74-fa1d9b61c4e2)
 
 ## Developer
 Kim KyoungHo
