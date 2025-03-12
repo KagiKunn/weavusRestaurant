@@ -9,6 +9,7 @@
 </head>
 <body>
 <div class="container text-center" style="max-width: 800px">
+	<div th:replace="fragment/nav :: nav"></div>
 	<form enctype="multipart/form-data" method="post" th:action="@{/owner/edit}">
 		<div class="card m-4" style="overflow: hidden;">
 			<div class="card-header">
@@ -17,10 +18,10 @@
 			</div>
 			<div class="card-body list-group">
 				<div class="list-group-item">
-					<img alt="..." class="img-fluid img-thumbnail rounded-4" th:src="${r.img}">
+					<img alt="..." class="img-fluid img-thumbnail rounded-4" th:src="|http://localhost:8080/upload/${r.img}|">
 					<input type="file" name="img">
 				</div>
-				<textarea class="list-group-item" th:text="${r.description}" name="description"></textarea>
+				<textarea class="list-group-item" th:text="${r.description}" name="description" required></textarea>
 				<div class="list-group-item">
 				</div>
 				<div class="list-group-item">
@@ -28,7 +29,7 @@
 						<div class="col row">
 							<span class="col-4 text-end">Telephone : </span>
 							<div class="col text-start">
-								<input style="width:100%" th:value="${r.telephone}" name="telephone">
+								<input style="width:100%" th:value="${r.telephone}" name="telephone" required>
 							</div>
 						</div>
 					</div>

@@ -69,7 +69,7 @@ public class OwnerService {
 						.description(r.getDescription())
 						.telephone(r.getTelephone())
 						.address(r.getAddress())
-						.img("/upload/" + r.getImg())
+						.img(r.getImg())
 						.createdAt(r.getCreatedAt())
 						.updatedAt(r.getUpdatedAt())
 						.userName(r.getUser().getUsername())
@@ -88,7 +88,7 @@ public class OwnerService {
 								.description(r.getDescription())
 								.telephone(r.getTelephone())
 								.address(r.getAddress())
-								.img("/upload/" + r.getImg())
+								.img(r.getImg())
 								.createdAt(r.getCreatedAt())
 								.updatedAt(r.getUpdatedAt())
 								.userName(r.getUser().getUsername())
@@ -102,26 +102,25 @@ public class OwnerService {
 	@Transactional
 	public void updateRestaurant(RestaurantDto restaurantDto,HttpSession session) {
 		User sessionUser = (User)session.getAttribute("user");
-		Restaurant old = ownerRepository.findByIdAndUserId(restaurantDto.getId(),sessionUser.getId());
-
-		UUID uuid = UUID.randomUUID();
-		String imgName = uuid + "_" + restaurantDto.getImg().getOriginalFilename();
-		Path path = Paths.get(uploadPath + imgName);
-
+		Restaurant r = ownerRepository.findById(restaurantDto.getId()).orElse(null);
+		System.out.println(restaurantDto.getImg().getOriginalFilename());
+		String imgName = "empty";
 		try {
-			Files.write(path, restaurantDto.getImg().getBytes());
-
+			if(!restaurantDto.getImg().isEmpty()){
+				System.out.println("img is not null");
+				UUID uuid = UUID.randomUUID();
+				imgName = uuid + "_" + restaurantDto.getImg().getOriginalFilename();
+				Path path = Paths.get(uploadPath + imgName);
+				Files.write(path, restaurantDto.getImg().getBytes());
+			}
 			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-			Restaurant restaurant = Restaurant.builder()
-					.id(restaurantDto.getId())
-					.name(restaurantDto.getName() != null ? restaurantDto.getName() : old.getName())
-					.description(restaurantDto.getDescription() != null ? restaurantDto.getDescription() : old.getDescription())
-					.telephone(restaurantDto.getTelephone() != null ? restaurantDto.getTelephone() : old.getTelephone())
-					.address(restaurantDto.getAddress() != null ? restaurantDto.getAddress() : old.getAddress())
-					.img(restaurantDto.getImg() != null ? imgName : old.getImg())
-					.createdAt(old.getCreatedAt())
+			Restaurant restaurant = r.toBuilder()
+					.name(restaurantDto.getName())
+					.description(restaurantDto.getDescription())
+					.telephone(restaurantDto.getTelephone())
+					.address(restaurantDto.getAddress())
+					.img(restaurantDto.getImg().isEmpty()?r.getImg():imgName)
 					.updatedAt(timestamp)
-					.user(old.getUser())
 					.build();
 			ownerRepository.save(restaurant);
 		} catch (Exception e){

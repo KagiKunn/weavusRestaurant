@@ -61,7 +61,6 @@ async function idcheck() {
 
     } catch (error) {
         console.error('Error:', error);
-        alert('오류가 발생했습니다.');
     }
 }
 

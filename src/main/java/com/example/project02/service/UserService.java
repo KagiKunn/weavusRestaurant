@@ -42,7 +42,10 @@ public class UserService {
 		}
 	}
 
-	public boolean idCheck(String id) {return userRepository.existsById(id);
+	public boolean idCheck(String id) {
+		boolean check = userRepository.existsById(id);
+		System.out.println("!!!!!!!!!!!!!!"+check);
+		return check;
 	}
 
 	public boolean signIn(UserDto userDto, HttpSession session) {
@@ -63,7 +66,7 @@ public class UserService {
 						.description(r.getDescription())
 						.telephone(r.getTelephone())
 						.address(r.getAddress())
-						.img("/upload/" + r.getImg())
+						.img(r.getImg())
 						.createdAt(r.getCreatedAt())
 						.updatedAt(r.getUpdatedAt())
 						.userName(r.getUser().getUsername())

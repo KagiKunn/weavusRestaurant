@@ -8,13 +8,14 @@
 </head>
 <body>
 <div class="container text-center" style="max-width: 800px">
+	<div th:replace="fragment/nav :: nav"></div>
 	<div class="card m-4" style="overflow: hidden;">
 			<div class="card-header">
 				<input th:value="${r.id}" hidden id="id">
 				<h1 th:text="${r.name}"></h1>
 			</div>
 			<div class="card-body list-group">
-				<div class="list-group-item" ><img th:src="${r.img}" alt="..." class="img-fluid img-thumbnail rounded-4"></div>
+				<div class="list-group-item" ><img th:src="|http://localhost:8080/upload/${r.img}|" alt="..." class="img-fluid img-thumbnail rounded-4"></div>
 				<div th:text="${r.description}" class="list-group-item"></div>
 				<div th:text="${r.address}" class="list-group-item"></div>
 				<div class="list-group-item">
@@ -58,7 +59,7 @@
 			</div>
 			<div class="card-footer row">
 				<div class="col">
-					<a class="btn btn-secondary" href="javascript:window.history.back()">Back</a>
+					<a class="btn btn-secondary" th:href="@{/owner/restaurant/{id}(id=${session.user.id})}">Back</a>
 				</div>
 				<div class="col">
 					<button class="btn btn-danger" onclick="deleteRestaurant()">Delete</button>

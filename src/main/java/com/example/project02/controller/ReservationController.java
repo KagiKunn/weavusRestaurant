@@ -33,12 +33,14 @@ public class ReservationController {
 	@GetMapping("/restaurant/{id}")
 	public String RestaurantDetail(@PathVariable Long id, Model model) {
 		model.addAttribute("r",ownerService.getRestaurant(id));
+		model.addAttribute("title","Detail Restaurant");
 		return "main/restaurant";
 	}
 
 	@GetMapping("/reservation/{id}")
 	public String reserve(@PathVariable Long id, Model model) {
-		model.addAttribute("r",reserveService.getReserve(id));
+		model.addAttribute("r",ownerService.getRestaurant(id));
+		model.addAttribute("title","Reservation");
 		return "main/reservation";
 	}
 
@@ -47,9 +49,15 @@ public class ReservationController {
 		System.out.println("post called");
 		System.out.println(reservationDto);
 		reserveService.setReservation(reservationDto,session);
-//		reserveService.reserveCount(reservationDto.getRestaurantId().getId());
 		User sessionUser = (User) session.getAttribute("user");
 		return "redirect:/reservelist/"+sessionUser.getId();
+	}
+
+	@GetMapping("/reservate/{id}")
+	public String reservate(@PathVariable Long id, Model model) {
+		model.addAttribute("r",reserveService.getReserve(id));
+		model.addAttribute("title","Reservation");
+		return "main/reservate";
 	}
 
 	@PostMapping("/cancelReservation")

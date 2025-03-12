@@ -16,7 +16,7 @@
 				<input hidden th:value="${r.id}" name="id">
 				<div class="row">
 					<div class="col-2 p-1 rounded" style="background-color: lightgray">
-						<img th:src="|/upload/${r.restaurantId.img}|" alt="..." class="img-fluid rounded"/>
+						<img th:src="|http://localhost:8080/upload/${r.restaurantId.img}|" alt="..." class="img-fluid rounded"/>
 					</div>
 					<div class="col border">
 						<div class="row upper-cell border-bottom d-flex align-items-center">
@@ -32,13 +32,13 @@
 					<div class="col-1">
 						<th:block th:if="${(r.status==0||r.status==1)&&r.date.toString() + ' ' + r.time.toString() > nowDateTime}">
 							<div class="h-50 d-flex align-items-center">
-								<a class="btn btn-primary p-1 w-100 h-75 d-flex align-items-center justify-content-center" th:href="@{/reservation/{id}(id=${r.id})}">Detail</a>
+								<a class="btn btn-primary p-1 w-100 h-75 d-flex align-items-center justify-content-center" th:href="@{/reservate/{id}(id=${r.id})}">Detail</a>
 							</div>
 							<div class="h-50 d-flex align-items-center">
 								<button class="btn btn-warning p-1 w-100 h-75" th:onclick="|cancelReservation('${r.id}')|">Cancel</button>
 							</div>
 						</th:block>
-						<th:block th:if="${r.status==2}">
+						<th:block th:if="${r.status==2 || (r.status==0 && (r.date.toString() + ' ' + r.time.toString() <= nowDateTime))}">
 							<div class="h-100 d-flex align-items-center"><h5>Canceled</h5></div>
 						</th:block>
 						<th:block th:if="${r.date.toString() + ' ' + r.time.toString() < nowDateTime && r.status==1}">

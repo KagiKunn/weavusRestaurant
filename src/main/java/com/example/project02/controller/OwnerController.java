@@ -31,8 +31,9 @@ public class OwnerController {
 	}
 
 	@GetMapping("registry")
-	public String ownerRegistry() {
+	public String ownerRegistry(Model model) {
 		System.out.println("registry get controller called");
+		model.addAttribute("title","Registry Restaurant");
 		return "owner/registry";
 	}
 
@@ -46,11 +47,13 @@ public class OwnerController {
 	@GetMapping("restaurant/{id}")
 	public String ownerRestaurant(@PathVariable Long id, Model model) {
 		model.addAttribute("r", ownerService.getRestaurant(id));
+		model.addAttribute("title","My Restaurants");
 		return "owner/restaurant";
 	}
 	@GetMapping("edit/{id}")
 	public String ownerRestaurantEdit(@PathVariable Long id, Model model) {
 		model.addAttribute("r", ownerService.getRestaurant(id));
+		model.addAttribute("title","Edit Restaurants");
 		return "owner/edit";
 	}
 

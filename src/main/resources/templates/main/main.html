@@ -16,7 +16,7 @@
 				<input hidden th:value="${r.id}" id="id" name="id">
 					<div class="row">
 						<div class="col-2 p-1 rounded" style="background-color: lightgray">
-							<img th:src="${r.img}" alt="..." class="img-fluid rounded"/>
+							<img th:src="|http://localhost:8080/upload/${r.img}|" alt="..." class="img-fluid rounded"/>
 						</div>
 						<div class="col border">
 							<div class="row upper-cell border-bottom d-flex align-items-center">

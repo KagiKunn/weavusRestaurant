@@ -9,53 +9,49 @@
 </head>
 <body>
 <div class="container text-center" style="max-width: 600px">
-	<div class="card m-4" style="overflow: hidden;">
-		<div class="card-header">
-			<h1 th:text="${r.restaurantId.name}"></h1>
-		</div>
-		<div class="card-body list-group">
-			<div class="list-group-item">
-				<div class="list-group-item">
-					<img alt="..." class="img-fluid img-thumbnail rounded-4" th:src="|/upload/${r.restaurantId.img}|">
+	<div class="row">
+		<div th:replace="fragment/nav :: nav"></div>
+		<div class="card m-4" style="overflow: hidden;">
+			<form method="post" th:action="@{/reservation}">
+				<div class="card-header">
+					<input hidden id="id" name="restaurantId" th:value="${r.id}">
+					<h1 th:text="${r.name}"></h1>
 				</div>
-				<div class="list-group-item" th:text="${r.restaurantId.description}"></div>
-			</div>
-			<div class="list-group-item">
-				<div class="row">
-					<span class="col text-end">Reserver : </span>
-					<div class="col text-start"><span th:text="${r.userId.username}"></span></div>
+				<div class="card-body list-group">
+					<div class="list-group-item">
+						<div class="list-group-item">
+							<img alt="..." class="img-fluid img-thumbnail rounded-4" th:src="|http://localhost:8080/upload/${r.img}|">
+						</div>
+						<div class="list-group-item" th:text="${r.description}"></div>
+					</div>
+					<div class="list-group-item">
+						<div class="row">
+							<span class="col text-end">Number of People : </span>
+							<div class="col text-start"><input maxlength="2" name="peopleNo" type="number" required></div>
+						</div>
+					</div>
+					<div class="list-group-item">
+						<div class="row">
+							<span class="col text-end">Reserve Date : </span>
+							<div class="col text-start"><input name="date" type="date" required></div>
+						</div>
+					</div>
+					<div class="list-group-item">
+						<div class="row">
+							<span class="col text-end">Reserve Time : </span>
+							<div class="col text-start"><input name="time" type="time" required></div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="row">
-					<span class="col text-end">Number of People : </span>
-					<div class="col text-start"><span th:text="${r.peopleNo}"></span></div>
+				<div class="card-footer row">
+					<div class="col">
+						<a class="btn btn-secondary" href="javascript:window.history.back()">Back</a>
+					</div>
+					<div class="col">
+						<button class="btn btn-success" type="submit">Reserve</button>
+					</div>
 				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="row">
-					<span class="col text-end">Reserve Date : </span>
-					<div class="col text-start"><span th:text="${r.date}"></span></div>
-				</div>
-				<div class="row">
-					<span class="col text-end">Time : </span>
-					<div class="col text-start"><span th:text="${r.time}"></span></div>
-				</div>
-			</div>
-			<div class="list-group-item">
-				<div class="row">
-					<span class="col text-end">Number of People : </span>
-					<div class="col text-start"><span th:text="${r.userId.phone}"></span></div>
-				</div>
-			</div>
-		</div>
-		<div class="card-footer row">
-			<div class="col">
-				<a class="btn btn-secondary" href="javascript:window.history.back()">Back</a>
-			</div>
-			<div class="col">
-				<button class="btn btn-warning" th:onclick="|cancelReservation('${r.id}')|">Cancel</button>
-			</div>
+			</form>
 		</div>
 	</div>
 </div>

@@ -16,14 +16,14 @@
 			<li class="list-group-item main-list" th:each="r:${restaurant}">
 				<div class="row">
 					<div class="col-2 p-1 rounded" style="background-color: lightgray">
-						<img alt="..." class="img-fluid rounded" th:src="${r.img}"/>
+						<img alt="..." class="img-fluid rounded" th:src="|http://localhost:8080/upload/${r.img}|"/>
 					</div>
 					<div class="col border">
-						<div class="row upper-cell border-bottom">
+						<div class="row upper-cell border-bottom d-flex align-items-center">
 							<div class="col border-end  "><h2 th:text="${r.name}"></h2></div>
 							<div class="col" th:text="${r.address}">주소</div>
 						</div>
-						<div class="row under-cell">
+						<div class="row under-cell d-flex align-items-center">
 							<div class="col border-end" th:text="${r.createdAt}">등록일</div>
 							<div class="col-2 border-end" th:text="${r.favorite}">추천수</div>
 							<div class="col-2" th:text="${r.reserved}">누적방문자</div>
