@@ -41,7 +41,7 @@
 						<th:block th:if="${r.status==2 || (r.status==0 && (r.date.toString() + ' ' + r.time.toString() <= nowDateTime))}">
 							<div class="h-100 d-flex align-items-center"><h5>Canceled</h5></div>
 						</th:block>
-						<th:block th:if="${r.date.toString() + ' ' + r.time.toString() < nowDateTime && r.status==1}">
+						<th:block th:if="${r.date.toString() + ' ' + r.time.toString() <= nowDateTime && r.status==1}">
 							<div class="h-100 d-flex align-items-center">
 								<button class="btn btn-primary p-1 w-100 h-75" th:onclick="|favorite('${r.id}','${r.restaurantId.id}')|">Favorite!</button>
 							</div>

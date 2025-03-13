@@ -1,11 +1,15 @@
 package com.example.project02.controller;
 
 import com.example.project02.dto.ReservationDto;
-import com.example.project02.entity.User;
+import com.example.project02.entity.UserE;
+import com.example.project02.entity.UserE;
 import com.example.project02.service.OwnerService;
 import com.example.project02.service.ReserveService;
+import com.example.project02.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +24,11 @@ public class ReservationController {
 
 	private final ReserveService reserveService;
 	private final OwnerService ownerService;
+	private final UserService userService;
 
 	@GetMapping("/reservelist/{id}")
 	public String reserveList(@PathVariable String id, Model model, HttpSession session) {
-		List<ReservationDto> reserve = reserveService.getReserveListById(session);
+		List<ReservationDto> reserve = reserveService.getReserveListById();
 		model.addAttribute("r", reserve);
 		model.addAttribute("title", "My Reservation");
 		model.addAttribute("nowDateTime", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
@@ -45,12 +50,12 @@ public class ReservationController {
 	}
 
 	@PostMapping("/reservation")
-	public String reservation(@ModelAttribute ReservationDto reservationDto, Model model, HttpSession session) {
+	public String reservation(@ModelAttribute ReservationDto reservationDto, Model model) {
 		System.out.println("post called");
 		System.out.println(reservationDto);
-		reserveService.setReservation(reservationDto,session);
-		User sessionUser = (User) session.getAttribute("user");
-		return "redirect:/reservelist/"+sessionUser.getId();
+		reserveService.setReservation(reservationDto);
+
+		return "redirect:/reservelist/"+ ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 	}
 
 	@GetMapping("/reservate/{id}")
@@ -61,10 +66,9 @@ public class ReservationController {
 	}
 
 	@PostMapping("/cancelReservation")
-	public String cancelReservation(@RequestParam Long id, HttpSession session) {
+	public String cancelReservation(@RequestParam Long id) {
 		reserveService.cancelReservation(id);
-		User sessionUser = (User) session.getAttribute("user");
-		return "redirect:/reservelist/"+sessionUser.getId();
+		return "redirect:/reservelist/"+ userService.getUserId();
 	}
 	@PostMapping("/owner/cancelReservation")
 	public String ownerCancelReservation(@RequestParam Long id, @RequestParam Long rid) {
@@ -73,9 +77,9 @@ public class ReservationController {
 	}
 
 	@GetMapping("/owner/reservelist/{id}")
-	public String ownerReservation(@PathVariable Long id, Model model, HttpSession session) {
+	public String ownerReservation(@PathVariable Long id, Model model) {
 		System.out.println("owner reserveList Page!!!");
-		model.addAttribute("r", reserveService.getReserveListByRestaurantId(id, session));
+		model.addAttribute("r", reserveService.getReserveListByRestaurantId(id));
 		model.addAttribute("title", "Manage Reservation");
 		return "/owner/reservelist";
 	}
@@ -88,10 +92,9 @@ public class ReservationController {
 		return "redirect:/owner/reservelist/"+rid;
 	}
 	@PostMapping("/favorite")
-	public String favorite(@RequestParam Long id, @RequestParam Long rid,HttpSession session) {
-		User sessionUser = (User) session.getAttribute("user");
+	public String favorite(@RequestParam Long id, @RequestParam Long rid) {
 		reserveService.favorite(rid);
 		reserveService.deleteReservation(id);
-		return "redirect:/reservelist/"+sessionUser.getId();
+		return "redirect:/reservelist/"+ userService.getUserId();
 	}
 }

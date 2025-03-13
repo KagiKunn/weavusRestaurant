@@ -17,26 +17,27 @@ public class UserController {
 	private final UserService userService;
 
 	@PostMapping("/signup")
-	public String signUp(@ModelAttribute UserDto userDto, HttpSession session) {
-		userService.signUp(userDto,session);
+	public String signUp(@ModelAttribute UserDto userDto, Model model) {
+		userService.signUp(userDto);
 		return "main/signin";
 	}
 
-	@PostMapping("/signin")
-	public String signIn(@ModelAttribute UserDto userDto, HttpSession session) {
-		return userService.signIn(userDto,session)? "redirect:main":"main/signin";
-	}
+//	@PostMapping("/signin")
+//	public String signIn(@ModelAttribute UserDto userDto, HttpSession session) {
+//		return userService.signIn(userDto,session)? "redirect:main":"main/signin";
+//	}
 
 	@GetMapping("/mypage")
 	public String mypage(Model model) {
 		model.addAttribute("title","MyPage");
+		model.addAttribute("user",userService.getUserInfo());
 		return "main/mypage";
 	}
 
 	@PostMapping("/changeuserinfo")
-	public String changeUserInfo(@ModelAttribute UserDto userDto, HttpSession session) {
-		userService.updateUser(userDto,session);
-		return "main/mypage";
+	public String changeUserInfo(@ModelAttribute UserDto userDto) {
+		userService.updateUser(userDto);
+		return "redirect:/mypage";
 	}
 
 	@PostMapping("deleteuser")

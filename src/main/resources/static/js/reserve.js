@@ -7,6 +7,7 @@ function cancelReservation(id){
     i.setAttribute("name", "id");
     i.value = id;
     f.appendChild(i);
+    csrfTokenSubmit(f);
     document.body.appendChild(f);
     f.submit();
 }
@@ -24,6 +25,7 @@ function ownerCancelReservation(id,rid){
     j.setAttribute("name", "rid");
     j.value = rid;
     f.appendChild(j);
+    csrfTokenSubmit(f);
     document.body.appendChild(f);
     f.submit();
 }
@@ -42,6 +44,7 @@ function confirmReservation(id, rid){
     j.setAttribute("name", "rid");
     j.value = rid;
     f.appendChild(j);
+    csrfTokenSubmit(f);
     document.body.appendChild(f);
     f.submit();
 }
@@ -59,6 +62,7 @@ function favorite(id,rid){
     j.setAttribute("name", "rid");
     j.value = rid;
     f.appendChild(j);
+    csrfTokenSubmit(f);
     document.body.appendChild(f);
     f.submit();
 }

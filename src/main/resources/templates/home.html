@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>홈</title>
+</head>
+<body>
+<h2>홈 페이지</h2>
+<p>환영합니다! <span th:text="${#httpServletRequest.remoteUser}"></span></p>
+<form th:action="@{/logout}" method="post">
+	<button type="submit">로그아웃</button>
+</form>
+</body>
+</html>

@@ -41,6 +41,9 @@ function deleteRestaurant() {
     n.setAttribute("name", "userId");
     n.value = name;
     f.appendChild(n);
+
+    csrfTokenSubmit(f);
+
     document.body.appendChild(f);
     f.submit();
 }

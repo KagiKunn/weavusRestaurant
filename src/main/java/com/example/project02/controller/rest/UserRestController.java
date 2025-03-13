@@ -24,6 +24,6 @@ public class UserRestController {
 	@PostMapping("/pwcheck")
 	public ResponseEntity<Boolean> checkPw(@RequestBody Map<String, String> request) {
 		System.out.println("check Controller called");
-		return ResponseEntity.ok(userService.pwCheck(request.get("id"),request.get("pw")));
+		return ResponseEntity.ok(userService.pwCheck(request.get("pw")));
 	}
 }
