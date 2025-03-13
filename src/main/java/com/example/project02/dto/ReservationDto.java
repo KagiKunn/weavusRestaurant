@@ -1,7 +1,7 @@
 package com.example.project02.dto;
 
 import com.example.project02.entity.Restaurant;
-import com.example.project02.entity.User;
+import com.example.project02.entity.UserE;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,6 +24,6 @@ public class ReservationDto {
 	private int peopleNo;
 	//0:승낙대기 1:예약성공 2:예약취소
 	private int status;
-	private User userId;
+	private UserE userId;
 	private Restaurant restaurantId;
 }

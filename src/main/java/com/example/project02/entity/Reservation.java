@@ -20,7 +20,7 @@ public class Reservation {
 	private int status;
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private UserE user;
 	@ManyToOne
 	@JoinColumn(name = "restaurant_id")
 	private Restaurant restaurant;

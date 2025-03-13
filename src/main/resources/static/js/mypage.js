@@ -29,18 +29,19 @@ function changeInfo(){
 }
 
 async function originalPwCheck() {
-    const id = document.getElementById("id").value;
     const pw = document.getElementById("mo-in").value;
-    if(id===""||pw===""){
+    const csrfToken = document.querySelector('input[name="_csrf"]').value;
+    if(pw===""){
         return false;
     }
     try {
         const response = await fetch('/pwcheck', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json' // ✅ JSON을 보낼 경우 필수
+                'Content-Type': 'application/json', // ✅ JSON을 보낼 경우 필수
+                'X-CSRF-TOKEN' : csrfToken
             },
-            body: JSON.stringify({id: id,pw: pw}) // ✅ JSON.stringify() 필요
+            body: JSON.stringify({pw: pw}) // ✅ JSON.stringify() 필요
         });
 
         if (!response.ok) {

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Entity
-public class User {
+public class UserE {
 	@Id
 	private String  id;
 	private String password;

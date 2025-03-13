@@ -16,8 +16,7 @@
 					<li class="list-group-item">
 						<div class="row px-4">
 							<p class="card-text col">ID</p>
-							<span class="col text-secondary" th:text="${session.user.id}"></span>
-							<input type="hidden" id="id" name="id" th:value="${session.user.id}">
+							<span class="col text-secondary" th:text="${user.id}"></span>
 						</div>
 						<span id="idmsg" class="text-end hidden-msg"></span>
 					</li>
@@ -37,26 +36,26 @@
 					<li class="list-group-item">
 						<div class="row px-4">
 							<p class="card-text col">Name</p>
-							<input class="col" name="username" required th:value="${session.user.username}">
+							<input class="col" name="username" required th:value="${user.username}">
 						</div>
 					</li>
 					<li class="list-group-item">
 						<div class="row px-4">
 							<p class="card-text col">Phone Number</p>
-							<input class="col" name="phone" required th:value="${session.user.phone}">
+							<input class="col" name="phone" required th:value="${user.phone}">
 						</div>
 					</li>
 					<li class="list-group-item">
 						<div class="row px-4">
 							<p class="card-text col">Are you Owner?</p>
 							<div class="col d-flex" style="gap:10%">
-								<label><span class="card-text">Yes <input name="role" type="radio" th:checked="${session.user.role==1}" value="1"></span></label>
-								<label><span class="card-text">No <input checked name="role" type="radio" th:checked="${session.user.role==2}" value="2"></span></label>
+								<label><span class="card-text">Yes <input name="role" type="radio" th:checked="${user.role==1}" value="1"></span></label>
+								<label><span class="card-text">No <input checked name="role" type="radio" th:checked="${user.role==2}" value="2"></span></label>
 							</div>
 						</div>
 					</li>
 					<div class="text-end p-4">
-						<span class="text-warning" style="text-decoration: none;" id="delete" th:data-id="${session.user.id}">Press the button to display the delete link</span>
+						<a class="text-warning" style="text-decoration: none;" id="delete" th:data-id="${user.id}">Press the button to display the delete link</a>
 					</div>
 				</ul>
 			</div>
@@ -66,7 +65,7 @@
 				</div>
 				<div class="col">
 					<button type="button" id="changebtn" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="originalPwCheck()">change</button>
-					<button type="button" id="submitbtn" class="btn btn-warning hidden-msg" onclick="userInfoSubmit()">
+					<button type="submit" id="submitbtn" class="btn btn-warning hidden-msg">
 						Save
 					</button>
 				</div>

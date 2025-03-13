@@ -7,7 +7,7 @@
 				integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" rel="stylesheet">
 </head>
 <body>
-<div class="container text-center" style="max-width: 600px">
+<div class="container text-center" style="max-width: 800px">
 	<div class="card mt-4" style="overflow: hidden;">
 		<form th:action="@{/signin}" method="post">
 			<div class="card-header">
@@ -28,13 +28,13 @@
 						</div>
 					</li>
 					<div class="text-end p-2">
-							<a href="signup" class="text-secondary" style="text-decoration: none">you don't have any account?</a>
+							<a th:href="@{/signup}" class="text-secondary" style="text-decoration: none">you don't have any account?</a>
 					</div>
 				</ul>
 			</div>
 			<div class="card-footer row">
 				<div class="col">
-					<a class="btn btn-secondary" href="main">Back</a>
+					<a class="btn btn-secondary" href="/main">Back</a>
 				</div>
 				<div class="col">
 					<button type="submit" class="btn btn-primary">Sign In</button>

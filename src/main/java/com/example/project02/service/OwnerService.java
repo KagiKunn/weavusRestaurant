@@ -2,14 +2,16 @@ package com.example.project02.service;
 
 import com.example.project02.dto.RestaurantDto;
 import com.example.project02.dto.everyone.RestaurantEveryDto;
-import com.example.project02.entity.Reservation;
 import com.example.project02.entity.Restaurant;
-import com.example.project02.entity.User;
+import com.example.project02.entity.UserE;
 import com.example.project02.repository.OwnerRepository;
 import com.example.project02.repository.ReserveRepository;
+import com.example.project02.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,7 @@ import java.util.UUID;
 @Service
 public class OwnerService {
 
+	private final UserRepository userRepository;
 	@Value("${file.upload-path}")
 	private String uploadPath;
 
@@ -33,6 +36,8 @@ public class OwnerService {
 	@Transactional
 	public void registry(RestaurantDto restaurantDto, HttpSession session) {
 		System.out.println("regi service called");
+		String userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		UserE ue = userRepository.findById(userId).orElse(null);
 			UUID uuid = UUID.randomUUID();
 			String imgName = uuid + "_" + restaurantDto.getImg().getOriginalFilename();
 			Path path = Paths.get(uploadPath + imgName);
@@ -51,7 +56,7 @@ public class OwnerService {
 					.updatedAt(timestamp)
 					.favorite(0L)
 					.reserved(0L)
-					.user((User)session.getAttribute("user"))
+					.user(ue)
 					.build();
 			ownerRepository.save(restaurant);
 		} catch (Exception e){
@@ -60,8 +65,8 @@ public class OwnerService {
 	}
 
 	public List<RestaurantEveryDto> getOwnerRestaurant(HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		return ownerRepository.findByUserId(user.getId())
+		String userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		return ownerRepository.findByUserId(userId)
 				.stream()
 				.map(r -> RestaurantEveryDto.builder()
 						.id(r.getId())
@@ -101,7 +106,6 @@ public class OwnerService {
 	}
 	@Transactional
 	public void updateRestaurant(RestaurantDto restaurantDto,HttpSession session) {
-		User sessionUser = (User)session.getAttribute("user");
 		Restaurant r = ownerRepository.findById(restaurantDto.getId()).orElse(null);
 		System.out.println(restaurantDto.getImg().getOriginalFilename());
 		String imgName = "empty";
@@ -128,11 +132,12 @@ public class OwnerService {
 		}
 	}
 
-	public void deleteRestaurant(RestaurantDto restaurantDto, HttpSession session) {
-		User sessionUser = (User)session.getAttribute("user");
-		System.out.println(sessionUser.getId());
+	public void deleteRestaurant(RestaurantDto restaurantDto) {
+		String userId = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		UserE user = userRepository.findById(userId).orElse(null);
+		System.out.println(user.getId());
 		System.out.println(restaurantDto.getUserId());
-		if(sessionUser.getId().equals(restaurantDto.getUserId())){
+		if(user.getId().equals(restaurantDto.getUserId())){
 			ownerRepository.deleteById(restaurantDto.getId());
 		}
 	}

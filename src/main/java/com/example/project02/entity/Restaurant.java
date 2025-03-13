@@ -29,7 +29,7 @@ public class Restaurant {
 	//사장
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private User user;
+	private UserE user;
 	@OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)  // 유저 삭제 시 레스토랑도 삭제됨
 	private List<Reservation> reservations;
 
